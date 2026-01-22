@@ -1,6 +1,6 @@
 
-import { router } from 'expo-router';
-import {View, Text, Image,TextInput, Pressable, TouchableOpacity, Alert,Platform, Dimensions, ScrollView} from 'react-native';
+
+import {View, Text, Image,TextInput, Pressable, TouchableOpacity, Alert,Platform, Dimensions, ScrollView, Linking} from 'react-native';
 import Button from '../components/button';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState } from 'react';
@@ -8,9 +8,13 @@ import Input from '../components/input';
 import Post from '../components/post';
 import Entypo from '@expo/vector-icons/Entypo';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { router } from 'expo-router';
 
 
 export default function index (){
+
+
+   console.log('hello from index')
 
   // STATE...
 
@@ -22,7 +26,6 @@ export default function index (){
  const [name , setName] = useState('Dayo') 
 
 
- console.log(name)
 
   Dimensions.get('screen') // returns {height , width , fontScale, }
 
@@ -70,7 +73,9 @@ export default function index (){
         }} />
 
         <Pressable style={{height:50, backgroundColor:'orange', justifyContent:'center', borderRadius:8}} onPress={()=>{
+
           router.push('./home')
+       
 
         }}>
           <Text style={{color:'white', alignSelf:'center'}}>Sign up</Text>

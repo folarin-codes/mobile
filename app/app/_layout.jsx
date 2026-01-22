@@ -1,10 +1,12 @@
-import { Stack } from "expo-router";
+import { Stack } from "expo-router"
 
-export default function RootLayout() {
+
+const RootLayout = ()=>{
+
   return(
-    <Stack screenOptions={{headerShown:false}}>
-      <Stack.Screen name={'index'} />
-      <Stack.Screen name="home"/>
-    </Stack>
+    <Stack screenOptions={{headerShown:false}}/>
+ 
   )
 }
+
+export default RootLayout;

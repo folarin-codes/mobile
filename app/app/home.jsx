@@ -5,6 +5,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 
 const Home = ()=>{
+
+    console.log('hello from Home')
     return(
         <SafeAreaView>
 
@@ -15,6 +17,17 @@ const Home = ()=>{
                 <Text>Back</Text>
             </Pressable>
             <Text>I AM THE HOME SCREEN</Text>
+
+
+                  <Pressable style={{height:50, backgroundColor:'orange', justifyContent:'center', borderRadius:8}} onPress={()=>{
+
+          router.push('./settings')
+       
+
+        }}>
+          <Text style={{color:'white', alignSelf:'center'}}>Sign up</Text>
+
+        </Pressable>
         </SafeAreaView>
     )
 }
