@@ -1,10 +1,13 @@
 
 import { router } from 'expo-router';
-import {View, Text, Image,TextInput, Pressable, TouchableOpacity, Alert,} from 'react-native';
+import {View, Text, Image,TextInput, Pressable, TouchableOpacity, Alert,Platform, Dimensions, ScrollView} from 'react-native';
 import Button from '../components/button';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState } from 'react';
 import Input from '../components/input';
+import Post from '../components/post';
+import Entypo from '@expo/vector-icons/Entypo';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 
 export default function index (){
@@ -14,61 +17,46 @@ export default function index (){
   const [email , setEmail] = useState('')
 
   const [lightMode , setLightMode] = useState(true)
-  console.log(email)
 
+
+ const [name , setName] = useState('Dayo') 
+
+
+ console.log(name)
+
+  Dimensions.get('screen') // returns {height , width , fontScale, }
+
+
+  const {height , width} = Dimensions.get('screen')
 
   return(
 
     <SafeAreaView style={{
-      backgroundColor: lightMode ? 'off-white' :'black' ,
+      backgroundColor: lightMode ? "white" : 'black',
       flex:1,
       paddingHorizontal:10
     }}>
-{/* 
-      <Text style={{fontSize:50, color:'red', fontWeight:'900', textAlign:'center'}}>Hello world!</Text>
-      <Text>My name is micheal</Text>
-      <Text>I love coding</Text>
-
-      <Image style={{width:300, height:100, alignSelf:'center'}} source={require('../assets/images/screen.png')}  /> */}
-
-{/* 
-      <TextInput onChangeText={(text)=>{
-
-        setEmail(text)
-
-      }} 
-      
-      placeholderTextColor={'black'} placeholder='Enter email' style={{backgroundColor:'white', height:50, marginTop:20, borderRadius:20, paddingHorizontal:20}}/> */}
 
 
-      {/* <Pressable onPress={()=> router.push('./home')}>
+      <Pressable onPress={()=>{
+       
+        setLightMode(!lightMode)
 
-        <Text> Click me!</Text>
-      
-      </Pressable> */}
+      }} style={{alignSelf:'flex-end', marginRight:20, marginTop:10}}>
 
-{/* 
-      <TouchableOpacity onPress={()=> setLightMode(!lightMode) } style={{backgroundColor:'orange', height:50, borderRadius:8, justifyContent:'center'}}>
+        {
 
-        <Text style={{ alignSelf:'center', color:'white', fontSize:20}}>Enter</Text>
+          lightMode ?  <MaterialIcons name="dark-mode" size={40} color="black" /> :   <Entypo name="light-down" size={40} color="white" />
 
-      </TouchableOpacity> */}
+        }
+     
 
-{/* 
-      <View style={{gap:30}}>
-
-      <Button style={{backgroundColor:'red', marginTop:20}} text={'Click me'}/>
-
-      <Button text={'press me'}/>
-
-      <Button text={'login'}/>
-
-      <Button style={{backgroundColor:'blue'}} text={'sign in'}/>
-
-      </View> */}
-
+      </Pressable>
 
       <View style={{marginTop:40, gap:20}}>
+
+
+        <Text style={{fontSize:40, fontWeight:'900', color:lightMode?'black':'white'}}>{name}</Text>
 
         <Input type={'default'} label='Full name' placeholder='Enter your full name'/>
 
@@ -76,14 +64,19 @@ export default function index (){
 
         <Input type={'number-pad'} label="Phone number" placeholder='Enter your phone number'/>
 
+        <TextInput style={{borderColor:'black', borderWidth:2, height:50, borderRadius:8, paddingHorizontal:10}}  onChangeText={(name)=>{
 
+          setName(name)
+        }} />
+
+        <Pressable style={{height:50, backgroundColor:'orange', justifyContent:'center', borderRadius:8}} onPress={()=>{
+          router.push('./home')
+
+        }}>
+          <Text style={{color:'white', alignSelf:'center'}}>Sign up</Text>
+
+        </Pressable>
       </View>
-
-
-
-
-     
-
     </SafeAreaView>
 
   )
