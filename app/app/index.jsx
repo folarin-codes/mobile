@@ -3,34 +3,78 @@
 import {View, Text, Image,TextInput, Pressable, TouchableOpacity, Alert,Platform, Dimensions, ScrollView, Linking} from 'react-native';
 import Button from '../components/button';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Input from '../components/input';
 import Post from '../components/post';
 import Entypo from '@expo/vector-icons/Entypo';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import Feather from '@expo/vector-icons/Feather';
+
 import { router } from 'expo-router';
 
 
 export default function index (){
 
-
-   console.log('hello from index')
-
   // STATE...
 
   const [email , setEmail] = useState('')
+  const [movies , setMovies] = useState([])
 
   const [lightMode , setLightMode] = useState(true)
 
-
- const [name , setName] = useState('Dayo') 
-
-
-
+  const [name , setName] = useState('Dayo') 
   Dimensions.get('screen') // returns {height , width , fontScale, }
 
 
+  console.log('hello world from my component')
+
+
+
+  
+
+
+  useEffect(()=>{
+
+    const options = {
+      method:'GET',
+      headers: {
+    'x-rapidapi-host': 'imdb236.p.rapidapi.com',
+    'x-rapidapi-key': '05f1179be4mshfdce8c5340638d0p1a85f3jsn97608f89afcf'
+  }
+    }
+
+
+    fetch('https://imdb236.p.rapidapi.com/api/imdb/top250-movies',
+    options).then((response)=>{
+
+      if(response?.status != 200){
+
+      console.log('An error occured')
+      }
+
+      return response.json()
+
+    }).then((data)=>{
+
+      console.log('resolved data ', data[0])
+
+      setMovies(data)
+
+    }).catch((error)=>{
+
+      console.log(error)
+
+    })
+
+  }, [])
+
+
+
+
   const {height , width} = Dimensions.get('screen')
+
+
+  console.log(movies.length)
 
   return(
 
@@ -39,6 +83,15 @@ export default function index (){
       flex:1,
       paddingHorizontal:10
     }}>
+
+
+      <Pressable onPress={()=>{
+        router.push('./home')
+      }} style={{alignSelf:'flex-start', marginRight:20, marginTop:10}}>
+
+        <Feather name="home" size={24} color="black" />
+
+      </Pressable>
 
 
       <Pressable onPress={()=>{
@@ -74,8 +127,10 @@ export default function index (){
 
         <Pressable style={{height:50, backgroundColor:'orange', justifyContent:'center', borderRadius:8}} onPress={()=>{
 
-          router.push('./home')
-       
+          router.push('./(tabs)/home')
+
+         
+
 
         }}>
           <Text style={{color:'white', alignSelf:'center'}}>Sign up</Text>
